@@ -1,5 +1,8 @@
 <template>
   <div class="users-wrap">
+    <div id="nav">
+      <router-link to="/">На страницу входа</router-link>
+    </div>
     <div class="users" v-if="!loadingStatus">
       <h1>Контакты</h1>
       <ul>
@@ -21,26 +24,24 @@
           <input class="form-control" type="text" v-model="newUser.email" placeholder="Введите почту"/>
         </div>
         <button @click="createUser" class="btn btn-success">Сохранить</button>
-        <button @click="cancelCreateUser" class="btn btn-primary">Отменить</button>
+        <button @click="cancelCreateUser" class="btn btn-secondary">Отменить</button>
       </div>
     </div>
-    <div class="modal" :class="{ showModal: loadingStatus }">
-      <div class="modal-message">
-        Обновление...
-      </div>
-    </div>
+    <modal-loading/>
   </div>
 </template>
 
 <script>
   import User from '@/components/User.vue'
+  import ModalLoading from "../components/Modal-loading"
   export default {
-      name: 'About',
+      name: 'Users',
       components: {
+          ModalLoading,
           User
       },
       created() {
-          this.$store.dispatch('getData')
+          this.$store.dispatch('loadData')
       },
       data() {
           return {
@@ -80,9 +81,33 @@
 </script>
 
 <style lang="scss" scoped>
+  #app {
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    .app-wrap {
+      max-width: 500px;
+      margin: auto;
+    }
+    #nav {
+      padding: 30px;
+
+      a {
+        font-weight: bold;
+        color: #2c3e50;
+
+        &.router-link-exact-active {
+          color: #42b983;
+        }
+      }
+    }
+  }
   .users-wrap {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     .users {
       display: flex;
       flex-direction: column;
@@ -107,15 +132,4 @@
       }
     }
   }
-  .modal {
-    &.showModal {
-      display: block;
-    }
-    .modal-message {
-      margin-top: 50%;
-      transform: translateY(-50%);
-      font-size: 40px;
-    }
-  }
-
 </style>

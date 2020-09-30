@@ -12,51 +12,49 @@
         <input type="text" v-model="tempUser.email">
       </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-6 buttons">
       <button @click="startEditUser" v-if="!editInProcess" class="btn btn-primary">Редактировать</button>
       <button @click="deleteUser(user.id)" v-if="!editInProcess" class="btn btn-primary">Удалить</button>
       <button @click="editUser" v-if="editInProcess" class="btn btn-success">Сохранить</button>
-      <button @click="cancelEditUser" v-if="editInProcess" class="btn btn-primary">Отмена</button>
+      <button @click="cancelEditUser" v-if="editInProcess" class="btn btn-secondary">Отмена</button>
     </div>
   </li>
 </template>
 
 <script>
-  export default {
-      name: 'User',
-      data() {
-          return {
-              editInProcess: false,
-              tempUser: ''
-          }
-      },
-      props: {
-          user: [Object, String]
-      },
-      methods: {
-          deleteUser: function (id) {
-              this.$store.dispatch('deleteUser', id)
-          },
-          startEditUser: function () {
-              this.tempUser = Object.assign({}, this.user)
-              this.editInProcess = true
-          },
-          editUser: function () {
-              this.$store.dispatch('editUser', this.tempUser)
-              this.editInProcess = false
-          },
-          cancelEditUser: function () {
-              this.tempUser = ''
-              this.editInProcess = false
-          }
-      }
-  }
+export default {
+    name: 'User',
+    data() {
+        return {
+            editInProcess: false,
+            tempUser: ''
+        }
+    },
+    props: {
+        user: [Object, String]
+    },
+    methods: {
+        deleteUser: function (id) {
+            this.$store.dispatch('deleteUser', id)
+        },
+        startEditUser: function () {
+            this.tempUser = Object.assign({}, this.user)
+            this.editInProcess = true
+        },
+        editUser: function () {
+            this.$store.dispatch('editUser', this.tempUser)
+            this.editInProcess = false
+        },
+        cancelEditUser: function () {
+            this.tempUser = ''
+            this.editInProcess = false
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
 li {
-  /*display: flex;*/
-  /*flex-wrap: wrap;*/
   justify-content: space-between;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
@@ -71,6 +69,11 @@ li {
       display: flex;
       flex-direction: column;
     }
+  }
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   button {
     margin-bottom: 10px;
