@@ -12,23 +12,26 @@
       computed: {
           loadingStatus() {
               return this.$store.getters.getLoadingStatus
-          },
+          }
       }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped >
   .modal {
     background-color: rgba(0,0,0,.5);
     &.showModal {
       display: block;
     }
-      .modal-message {
-        margin-top: 50%;
-        transform: translateY(-50%);
-        text-align: center;
-        font-size: 40px;
-        color: #fff;
+    .modal-message {
+      /*margin-top: 50%;*/
+      transform: translate(-50%);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      text-align: center;
+      font-size: 40px;
+      color: #fff;
     }
   }
 </style>
